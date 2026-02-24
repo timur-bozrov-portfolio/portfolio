@@ -1,48 +1,74 @@
-// Инициализация при загрузке страницы
+// Загрузка видео из JSON и создание карточек
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Сайт загружен!');
     
-    // Получаем элементы
-    const userNameInput = document.getElementById('userName');
-    const greetBtn = document.getElementById('greetBtn');
-    const personalGreeting = document.getElementById('personalGreeting');
+    loadVideos();
+    setupNavigation();
+    setupScrollObserver();
+});
+
+// Загрузка видео из videos.json
+function loadVideos() {
+    fetch('videos.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка загрузки videos.json');
+            }
+            return response.json();
+        })
+        .then(videos => {
+            renderVideos(videos);
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            // Если JSON не загружается, показываем пример
+            const grid = document.getElementById('videos-grid');
+            grid.innerHTML = '<p style="grid-column: 1/-1; color: #b0b0b0; text-align: center; padding: 2rem;">Видео не загружены. Проверьте файл videos.json</p>';
+        });
+}
+
+// Рендер видео на странице
+function renderVideos(videos) {
+    const grid = document.getElementById('videos-grid');
+    grid.innerHTML = '';
+    
+    videos.forEach((video, index) => {
+        const card = createVideoCard(video, index);
+        grid.appendChild(card);
+    });
+}
+
+// Создание карточки видео
+function createVideoCard(video, index) {
+    const card = document.createElement('div');
+    card.className = 'video-card';
+    card.style.animationDelay = `${index * 0.1}s`;
+    
+    const vimeoUrl = `https://vimeo.com/${video.vimeoId}`;
+    const embedUrl = `https://player.vimeo.com/video/${video.vimeoId}`;
+    
+    card.innerHTML = `
+        <div class="video-container">
+            <iframe 
+                src="${embedUrl}" 
+                title="${video.title}"
+                allow="autoplay; fullscreen; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+        <div class="video-info">
+            <h3>${video.title}</h3>
+            <p>${video.description}</p>
+        </div>
+    `;
+    
+    return card;
+}
+
+// Навигация по страницам
+function setupNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
-
-    // Приветствие пользователя
-    greetBtn.addEventListener('click', function() {
-        const name = userNameInput.value.trim();
-        
-        if (name === '') {
-            personalGreeting.textContent = 'Пожалуйста, введите ваше имя!';
-            personalGreeting.style.color = '#e74c3c';
-            return;
-        }
-
-        personalGreeting.textContent = `👋 Рады видеть вас, ${name}!`;
-        personalGreeting.style.color = '#27ae60';
-        
-        // Сохраняем имя в localStorage
-        localStorage.setItem('userName', name);
-        
-        // Очищаем поле ввода
-        userNameInput.value = '';
-    });
-
-    // Приветствие при Enter
-    userNameInput.addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            greetBtn.click();
-        }
-    });
-
-    // Загружаем сохраненное имя при открытии страницы
-    const savedName = localStorage.getItem('userName');
-    if (savedName) {
-        personalGreeting.textContent = `👋 С возвращением, ${savedName}!`;
-        personalGreeting.style.color = '#27ae60';
-    }
-
-    // Навигация по страницам
+    
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -62,21 +88,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+}
 
-    // Функция для обновления активной ссылки при скролле
+// Обновление активной ссылки при скролле
+function setupScrollObserver() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
     window.addEventListener('scroll', function() {
-        let currentSection = '';
-        const sections = document.querySelectorAll('.section');
-
+        let currentSection = 'home';
+        const sections = document.querySelectorAll('section[id]');
+        
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
+            const sectionTop = section.offsetTop - 100;
             const sectionHeight = section.clientHeight;
             
-            if (window.pageYOffset >= sectionTop - 100) {
+            if (window.pageYOffset >= sectionTop) {
                 currentSection = section.getAttribute('id');
             }
         });
-
+        
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${currentSection}`) {
@@ -84,27 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    // Пример функции для работы с данными
-    function printMessage(text) {
-        console.log(`Сообщение: ${text}`);
-    }
-
-    // Экспортируем функции в глобальный scope если нужны
-    window.printMessage = printMessage;
-});
-
-// Дополнительные полезные функции
-function getGreeting(hour) {
-    if (hour < 12) {
-        return 'Доброе утро';
-    } else if (hour < 18) {
-        return 'Добрый день';
-    } else {
-        return 'Добрый вечер';
-    }
 }
 
-// Вывод приветствия в консоль
-const currentHour = new Date().getHours();
-console.log(`%c${getGreeting(currentHour)}!`, 'color: #667eea; font-size: 16px; font-weight: bold;');
+console.log('%cПортфолио Тимура Бозрова загружено!', 'color: #ffffff; font-size: 14px; font-weight: bold;');

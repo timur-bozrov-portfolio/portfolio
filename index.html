@@ -3,59 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Портфолио</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Тимур Бозров | Видеомонтажер</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <nav class="navbar">
-                <h1 class="logo">Мой Портфолио</h1>
-                <ul class="nav-links">
-                    <li><a href="#home" class="nav-link active">Главная</a></li>
-                    <li><a href="#about" class="nav-link">О мне</a></li>
-                    <li><a href="#projects" class="nav-link">Проекты</a></li>
-                    <li><a href="#contact" class="nav-link">Контакты</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <main>
-            <!-- Home Section -->
-            <section id="home" class="section hero">
-                <div class="hero-content">
-                    <h2 class="greeting">Добро пожаловать!</h2>
-                    <p class="subtitle">Привет, я рад видеть вас здесь</p>
-                    <p class="description">Это мой личный портфолио, где я делюсь своими проектами и опытом</p>
-                    <input type="text" id="userName" class="input-name" placeholder="Введите ваше имя">
-                    <button id="greetBtn" class="btn">Узнать больше</button>
-                    <p id="personalGreeting" class="personal-greeting"></p>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Тимур Бозров</h1>
+                    <p class="tagline">Видеомонтажер</p>
                 </div>
-            </section>
+                <nav class="nav">
+                    <a href="#home" class="nav-link active">Главная</a>
+                    <a href="#portfolio" class="nav-link">Портфолио</a>
+                    <a href="#contacts" class="nav-link">Контакты</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-            <!-- About Section (placeholder) -->
-            <section id="about" class="section">
-                <h2>О мне</h2>
-                <p>Раздел "О мне" - здесь вы можете добавить информацию о себе</p>
-            </section>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Создаю визуальные истории</h2>
+                <p>Профессиональный видеомонтаж и постпродакшн для коммерческих проектов</p>
+                <a href="#portfolio" class="cta-button">Посмотреть работы</a>
+            </div>
+        </div>
+    </section>
 
-            <!-- Projects Section (placeholder) -->
-            <section id="projects" class="section">
-                <h2>Мои проекты</h2>
-                <p>Раздел с вашими проектами - добавьте их сюда</p>
-            </section>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Портфолио</h2>
+            <div id="videos-grid" class="videos-grid">
+                <!-- Видео будут загружены здесь через JS -->
+            </div>
+        </div>
+    </section>
 
-            <!-- Contact Section (placeholder) -->
-            <section id="contact" class="section">
-                <h2>Контакты</h2>
-                <p>Свяжитесь со мной через эту форму</p>
-            </section>
-        </main>
+    <!-- Contacts Section -->
+    <section id="contacts" class="contacts">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contacts-content">
+                <p class="contact-intro">Свяжитесь со мной для заказа работы</p>
+                <div class="contact-links">
+                    <a href="mailto:timur@example.com" class="contact-link">
+                        <span class="icon">✉</span>
+                        <span>timur@example.com</span>
+                    </a>
+                    <a href="https://vimeo.com" target="_blank" class="contact-link">
+                        <span class="icon">▶</span>
+                        <span>Vimeo</span>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="contact-link">
+                        <span class="icon">📷</span>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https://github.com" target="_blank" class="contact-link">
+                        <span class="icon">⚙</span>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <footer class="footer">
-            <p>&copy; 2026 Мой Портфолио. Все права защищены.</p>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Тимур Бозров. Все права защищены.</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
